@@ -2,32 +2,104 @@
   <head>
     <link rel="icon"
 	  type="image/png"
-	  href="https://www.revelata.com/revelata_logo.png">
-    <title>revelata</title>
+	  href="revelata_logo_light.png">
+    <link rel="stylesheet" href="revelata_master.css">
+    <title>Revelata | From text to data to insight</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.all.min.js"></script>
+    <script>
+      function submitForm(e) {
+	  e.preventDefault();
+
+	  var valid_email = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,6})?$/;
+          if (!valid_email.test($("#emailaddr").val())) {
+	      Swal.fire({
+		  title: "Error",
+		  text: "Please enter a valid email address.",
+		  icon: "error",
+		  confirmButtonText: "OK"
+	      })
+              return;
+          }
+	  
+	  var email = $("#emailaddr").val();
+	  var data = {email : email};
+
+	  $.ajax({
+               type: "POST",
+               url : "https://gfyakat8sj.execute-api.us-west-2.amazonaws.com/prod/save",
+               dataType: "json",
+               crossDomain: "true",
+               contentType: "application/json; charset=utf-8",
+               data: JSON.stringify(data),
+             
+               success: function () {
+		   Swal.fire({
+		       title: "Success!",
+		       text: "We'll notify you as soon as our Early Access Program is underway.",
+		       icon: "success",
+		       confirmButtonText: "OK"
+		   })
+	   	   document.getElementById("early-access-form").reset();
+               },
+               error: function () {
+		   Swal.fire({
+		       title: "Oops...",
+		       text: "An error occurred.  Please try again.",
+		       icon: "error",
+		       confirmButtonText: "OK"
+		   })
+               }
+	  });
+      }      
+    </script>
+
   </head>
-  <body style="margin:0px">
-    <div style="padding:25px">
-      <img src="revelata_logo.png" width="70" height="70"/>
-      <span style="font-family:Lato,sans-serif;font-size:52pt;font-weight:100;color:rgba(34,110,147,1);vertical-align:text-bottom;margin-left:10px">revelata</span>
+  <body>
+    <div style="padding-top:10px; padding-left: 25px; padding-bottom: 25px;">
+      <img src="revelata_logo_light.png" width="72" height="72"/>
+      <span class="logo" style="vertical-align:text-bottom; margin-left:10px">revelata</span>
     </div>
-    <div 
-	 style="position:relative;
-		display:flex;
+    <div style="position:relative;
+		display:inline-block;
 		background-size:cover;
 		box-sizing:border-box;
 		background-blend-mode:multiply;
-		background-color:rgba(34,110,147,0.7);
+		background-color:rgba(34,110,147,0.75);
 		background-image:url('bulb.jpg');
-		min-height:600px;
+		min-height:800px;
 		background-position:0% 45%;
 		align-items:flex-start; 
 		justify-content:left">
       <div style="margin-left:5%;
-		  margin-top:3%;">
-	    <h1 style="font-family:Lato,sans-serif;font-size:48pt;font-weight:300;color:rgba(255,255,255,255)">Better
-	      decisions from better data</h1>
+		  margin-top:3%; width:100%">
+	    <h1 class="h1_light">We
+	      understand financial language.
+	    </h1>
+	    <div style="width:50%">
+	      <h2 class="h2_light">
+		Our AI platform automatically extracts data
+		from complex financial documents so that you can get to insight
+		faster.</h2>
+	    </div>
       </div>
+      <div style="margin-left:5%; margin-top: 3%; width: 100%;">
+      <form id="early-access-form" onSubmit="submitForm(event)">
+	<input type="email"
+	       id="emailaddr"
+	       placeholder="Enter your email address..."
+	       class="formfield" required/>
+	<button type="submit" class="formbutton">Get early access</button>
+      </form>
 
     </div>
+
+    </div>
+    <div style="text-align:center; width:100%; padding:10px">      
+      We are proudly funded by </br>
+      <img src="logo-2c-sbir-sttr.svg" style="width: 200px; padding: 10px">
+    </div>
+    <div style="text-align: center; padding:100px">      
+      <span style="color:black; font-size: 10pt">&copy; 2021 Revelata, Inc.</span>
   </body>
 </html>
