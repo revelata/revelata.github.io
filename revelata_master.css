@@ -48,7 +48,7 @@ div {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    font-family: Lato, san-serif;
+    font-family: Lato, sans-serif;
 }
 
 .formfield {
@@ -60,6 +60,6 @@ div {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    font-family: Lato, san-serif;
+    font-family: Lato, sans-serif;
     font-color:  rgba(34,110,147,1);
 }
